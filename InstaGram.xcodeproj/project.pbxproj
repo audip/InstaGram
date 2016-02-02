@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ACC8B3351C6049C0003A31D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8B3341C6049C0003A31D7 /* AppDelegate.swift */; };
-		ACC8B3371C6049C0003A31D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8B3361C6049C0003A31D7 /* ViewController.swift */; };
+		ACC8B3371C6049C0003A31D7 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8B3361C6049C0003A31D7 /* PhotosViewController.swift */; };
 		ACC8B33A1C6049C0003A31D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACC8B3381C6049C0003A31D7 /* Main.storyboard */; };
 		ACC8B33C1C6049C0003A31D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACC8B33B1C6049C0003A31D7 /* Assets.xcassets */; };
 		ACC8B33F1C6049C0003A31D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACC8B33D1C6049C0003A31D7 /* LaunchScreen.storyboard */; };
@@ -20,7 +20,7 @@
 		4C616F111CBC5F5D02168CC1 /* Pods-InstaGram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaGram.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstaGram/Pods-InstaGram.release.xcconfig"; sourceTree = "<group>"; };
 		ACC8B3311C6049C0003A31D7 /* InstaGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC8B3341C6049C0003A31D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ACC8B3361C6049C0003A31D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ACC8B3361C6049C0003A31D7 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		ACC8B3391C6049C0003A31D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACC8B33B1C6049C0003A31D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACC8B33E1C6049C0003A31D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				ACC8B3341C6049C0003A31D7 /* AppDelegate.swift */,
-				ACC8B3361C6049C0003A31D7 /* ViewController.swift */,
+				ACC8B3361C6049C0003A31D7 /* PhotosViewController.swift */,
 				ACC8B3381C6049C0003A31D7 /* Main.storyboard */,
 				ACC8B33B1C6049C0003A31D7 /* Assets.xcassets */,
 				ACC8B33D1C6049C0003A31D7 /* LaunchScreen.storyboard */,
@@ -211,7 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACC8B3371C6049C0003A31D7 /* ViewController.swift in Sources */,
+				ACC8B3371C6049C0003A31D7 /* PhotosViewController.swift in Sources */,
 				ACC8B3351C6049C0003A31D7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
