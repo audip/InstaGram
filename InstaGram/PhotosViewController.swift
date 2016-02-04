@@ -66,9 +66,12 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("photoscell", forIndexPath: indexPath) as! PhotoViewCell
         
         let photo = photos![indexPath.row]
+        
+        let username = photo.valueForKeyPath("user.username") as! String
         let imageUrl = NSURL(string: photo.valueForKeyPath("images.standard_resolution.url") as! String)
         
         cell.photoView.setImageWithURL(imageUrl!)
+        cell.usernameLabel!.text = "@\(username)"
                 
         //cell.textLabel!.text = "row \(indexPath.row)"
         //print("row \(indexPath.row)")
