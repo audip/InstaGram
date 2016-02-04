@@ -38,7 +38,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            NSLog("response: \(responseDictionary)")
+                        //NSLog("response: \(responseDictionary)")
                         
                         self.photos = responseDictionary["data"] as! [NSDictionary]
                         self.tableView.reloadData()
