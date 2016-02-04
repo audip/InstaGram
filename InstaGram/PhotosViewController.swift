@@ -81,8 +81,52 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         let photo = photos![indexPath.section]
         
-        let imageUrl = NSURL(string: photo.valueForKeyPath("images.standard_resolution.url") as! String)
-        cell.photoView.setImageWithURL(imageUrl!)
+        if let posterPath = photo.valueForKeyPath("images.low_resolution.url") as? String {
+            
+            let smallImageRequest = NSURLRequest(URL: NSURL(string: photo.valueForKeyPath("images.low_resolution.url") as! String)!)
+            let largeImageRequest = NSURLRequest(URL: NSURL(string: photo.valueForKeyPath("images.standard_resolution.url") as! String)!)
+            
+            cell.photoView.setImageWithURLRequest(
+                smallImageRequest,
+                placeholderImage: nil,
+                success: { (smallImageRequest, smallImageResponse, smallImage) -> Void in
+                    
+                    // smallImageResponse will be nil if the smallImage is already available
+                    // in cache (might want to do something smarter in that case).
+                    cell.photoView.alpha = 0.0
+                    cell.photoView.image = smallImage;
+                    
+                    UIView.animateWithDuration(0.5, animations: { () -> Void in
+                        
+                        cell.photoView.alpha = 1.0
+                        
+                        }, completion: { (sucess) -> Void in
+                            
+                            // The AFNetworking ImageView Category only allows one request to be sent at a time
+                            // per ImageView. This code must be in the completion block.
+                            cell.photoView.setImageWithURLRequest(
+                                largeImageRequest,
+                                placeholderImage: smallImage,
+                                success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
+                                    
+                                    cell.photoView.image = largeImage;
+                                    
+                                },
+                                failure: { (request, response, error) -> Void in
+                                    // do something for the failure condition of the large image request
+                                    // possibly setting the ImageView's image to a default image
+                            })
+                    })
+                },
+                failure: { (request, response, error) -> Void in
+                    // do something for the failure condition
+                    // possibly try to get the large image
+            })
+        }
+        else {
+            cell.photoView.image = nil
+        }
+        
         
         return cell
     }
