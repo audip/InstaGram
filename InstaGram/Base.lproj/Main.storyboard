@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10102" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10102" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="KVB-5P-kDc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10080"/>
@@ -18,11 +18,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoscell" rowHeight="318" id="QEw-iu-Jk6" customClass="PhotoViewCell" customModule="InstaGram" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="318"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="photoscell" rowHeight="320" id="QEw-iu-Jk6" customClass="PhotoViewCell" customModule="InstaGram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="320"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QEw-iu-Jk6" id="MCL-0d-beg">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="317.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2eL-ar-9oN">
@@ -33,6 +33,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="photoView" destination="2eL-ar-9oN" id="7Da-5T-j0j"/>
+                                            <segue destination="5O6-Bx-0vM" kind="push" id="rWz-Zi-WsL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -40,11 +41,54 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="XWS-2B-qbW"/>
                     <connections>
                         <outlet property="tableView" destination="fbL-jG-HvV" id="fjX-a2-ESB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="662" y="286"/>
+        </scene>
+        <!--Photo Details View Controller-->
+        <scene sceneID="SLh-PS-5DC">
+            <objects>
+                <viewController id="5O6-Bx-0vM" customClass="PhotoDetailsViewController" customModule="InstaGram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UTg-Vh-EQp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gui-R9-Q3q">
+                                <rect key="frame" x="0.0" y="113" width="320" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="L6A-Xu-fau"/>
+                    <connections>
+                        <outlet property="pictureView" destination="gui-R9-Q3q" id="G8f-6E-foC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="alI-rr-yMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1128" y="295"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NLh-Ty-ugR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KVB-5P-kDc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XYK-VO-SLN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="17G-7v-xkI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BeK-8r-zmL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="130" y="286"/>
         </scene>

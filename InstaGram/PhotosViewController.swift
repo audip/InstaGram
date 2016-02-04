@@ -64,10 +64,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         let photo = photos![indexPath.section]
         
-        let username = photo.valueForKeyPath("user.username") as! String
         let imageUrl = NSURL(string: photo.valueForKeyPath("images.standard_resolution.url") as! String)
-        let profilePicUrl = NSURL(string: photo.valueForKeyPath("user.profile_picture") as! String)
-        
         cell.photoView.setImageWithURL(imageUrl!)
         
         return cell
@@ -112,6 +109,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated:true)
+    }
 
     /*
     // MARK: - Navigation
@@ -122,5 +122,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let photo = photos![indexPath!.section]
+        let photoUrl = photo.valueForKeyPath("images.low_resolution.url") as! String
+        
+        let vc = segue.destinationViewController as! PhotoDetailsViewController
+        vc.photoURL = photoUrl
+    }
+
 
 }
