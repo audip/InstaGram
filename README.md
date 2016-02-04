@@ -16,14 +16,14 @@ The following functionality is complete:
 - [x] Infinite scrolling to keep viewing photos
 - [x] All images fade in as they are loading.
 - [x] Customize the UI.
-- [x] Sticky behaviour as it is on Instagram's official app 
+- [x] Sticky behaviour as it is on Instagram's official app
 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/iLIosYN.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
