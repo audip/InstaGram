@@ -54,11 +54,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if let photos = photos {
-            return photos.count
-        } else {
-            return 0
-        }
+        return 1
     }
     
 
@@ -66,22 +62,56 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("photoscell", forIndexPath: indexPath) as! PhotoViewCell
         
-        let photo = photos![indexPath.row]
+        let photo = photos![indexPath.section]
         
         let username = photo.valueForKeyPath("user.username") as! String
         let imageUrl = NSURL(string: photo.valueForKeyPath("images.standard_resolution.url") as! String)
         let profilePicUrl = NSURL(string: photo.valueForKeyPath("user.profile_picture") as! String)
         
         cell.photoView.setImageWithURL(imageUrl!)
-        cell.usernameLabel!.text = username
-        cell.profileView.setImageWithURL(profilePicUrl!)
-                
-        //cell.textLabel!.text = "row \(indexPath.row)"
-        //print("row \(indexPath.row)")
         
         return cell
     }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+        if let photos = photos {
+            return photos.count
+        } else {
+            return 0
+        }
+    }
 
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        
+        let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
+        profileView.layer.borderWidth = 1;
+        
+        let photo = photos![section]
+        
+        // Use the section number to get the right URL
+        let profilePicUrl = NSURL(string: photo.valueForKeyPath("user.profile_picture") as! String)
+        
+        profileView.setImageWithURL(profilePicUrl!)
+        
+        headerView.addSubview(profileView)
+        
+        // Add a UILabel for the username here
+        let usernameLabel = UILabel(frame: CGRect(x: 50, y: 10, width: 200, height:20))
+        usernameLabel.text = photo.valueForKeyPath("user.username") as? String
+        
+        headerView.addSubview(usernameLabel)
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 
     /*
     // MARK: - Navigation
