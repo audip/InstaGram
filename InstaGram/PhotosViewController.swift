@@ -26,6 +26,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         tableView.rowHeight = 320
         
+        // Initialize a UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+        
         // Set up Infinite Scroll loading indicator
         let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
@@ -174,6 +179,42 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         task.resume()
         
     }
+    
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        let clientId = "e05c462ebd86446ea48a5af73769b602"
+        let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+          completionHandler: { (dataOrNil, response, error) in
+            if let data = dataOrNil {
+                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                    data, options:[]) as? NSDictionary {
+                    
+                    self.isMoreDataLoading = false
+                    
+                    // Stop the loading indicator
+                    self.loadingMoreView!.stopAnimating()
+                    
+                    self.photos = responseDictionary["data"] as! [NSDictionary]
+                    self.tableView.reloadData()
+                    
+                    // Tell the refreshControl to stop spinning
+                    refreshControl.endRefreshing()
+                }
+            }
+        });
+        task.resume()
+    }
     /*
     // MARK: - Navigation
 
@@ -188,7 +229,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = sender as! UITableViewCell
         let indexPath = tableView.indexPathForCell(cell)
         let photo = photos![indexPath!.section]
-        let photoUrl = photo.valueForKeyPath("images.low_resolution.url") as! String
+        let photoUrl = photo.valueForKeyPath("images.standard_resolution.url") as! String
         
         let vc = segue.destinationViewController as! PhotoDetailsViewController
         vc.photoURL = photoUrl
