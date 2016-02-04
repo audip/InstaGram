@@ -22,6 +22,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = 320
         
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
@@ -69,9 +70,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         let username = photo.valueForKeyPath("user.username") as! String
         let imageUrl = NSURL(string: photo.valueForKeyPath("images.standard_resolution.url") as! String)
+        let profilePicUrl = NSURL(string: photo.valueForKeyPath("user.profile_picture") as! String)
         
         cell.photoView.setImageWithURL(imageUrl!)
-        cell.usernameLabel!.text = "@\(username)"
+        cell.usernameLabel!.text = username
+        cell.profileView.setImageWithURL(profilePicUrl!)
                 
         //cell.textLabel!.text = "row \(indexPath.row)"
         //print("row \(indexPath.row)")

@@ -12,6 +12,7 @@ class PhotoViewCell: UITableViewCell {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var profileView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

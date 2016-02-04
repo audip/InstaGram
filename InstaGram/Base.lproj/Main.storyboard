@@ -26,20 +26,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2eL-ar-9oN">
-                                                    <rect key="frame" x="23" y="29" width="274" height="275.5"/>
+                                                    <rect key="frame" x="0.0" y="29" width="320" height="288.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xug-Az-W6Q">
-                                                    <rect key="frame" x="66" y="-1" width="231" height="21"/>
+                                                    <rect key="frame" x="46" y="5" width="266" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="8aC-oR-UPt">
+                                                    <rect key="frame" x="8" y="0.0" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="photoView" destination="2eL-ar-9oN" id="7Da-5T-j0j"/>
+                                            <outlet property="profileView" destination="8aC-oR-UPt" id="0eb-gF-JXt"/>
                                             <outlet property="usernameLabel" destination="Xug-Az-W6Q" id="okU-1R-blY"/>
                                         </connections>
                                     </tableViewCell>
