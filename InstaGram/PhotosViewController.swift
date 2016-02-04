@@ -14,6 +14,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var photos: [NSDictionary]?
+    var isMoreDataLoading = false
+    var loadingMoreView:InfiniteScrollActivityView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 320
+        
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        tableView.contentInset = insets
         
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
@@ -113,6 +125,55 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRowAtIndexPath(indexPath, animated:true)
     }
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        if(!isMoreDataLoading){
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+
+                loadMoreData()
+            }
+        }
+    }
+    func loadMoreData(){
+        let clientId = "e05c462ebd86446ea48a5af73769b602"
+        let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (dataOrNil, response, error) in
+                if let data = dataOrNil {
+                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                        data, options:[]) as? NSDictionary {
+                        
+                            self.isMoreDataLoading = false
+                        
+                            // Stop the loading indicator
+                            self.loadingMoreView!.stopAnimating()
+                        
+                            self.photos = responseDictionary["data"] as! [NSDictionary]
+                            self.tableView.reloadData()
+                    }
+                }
+        });
+        task.resume()
+        
+    }
     /*
     // MARK: - Navigation
 
@@ -133,5 +194,39 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         vc.photoURL = photoUrl
     }
 
-
+    class InfiniteScrollActivityView: UIView {
+        var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+        static let defaultHeight:CGFloat = 60.0
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            setupActivityIndicator()
+        }
+        
+        override init(frame aRect: CGRect) {
+            super.init(frame: aRect)
+            setupActivityIndicator()
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            activityIndicatorView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2)
+        }
+        
+        func setupActivityIndicator() {
+            activityIndicatorView.activityIndicatorViewStyle = .Gray
+            activityIndicatorView.hidesWhenStopped = true
+            self.addSubview(activityIndicatorView)
+        }
+        
+        func stopAnimating() {
+            self.activityIndicatorView.stopAnimating()
+            self.hidden = true
+        }
+        
+        func startAnimating() {
+            self.hidden = false
+            self.activityIndicatorView.startAnimating()
+        }
+    }
 }
